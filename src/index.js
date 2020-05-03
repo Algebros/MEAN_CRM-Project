@@ -1,4 +1,6 @@
 const express = require('express');
+const cors = require('cors');
+const morgan = require('morgan');
 const authRoute = require('./routes/auth');
 const analyticsRoute = require('./routes/analytics');
 const categoryRoute = require('./routes/category');
@@ -7,6 +9,8 @@ const positionRoute = require('./routes/position');
 const app = express();
 
 app.use(express.json());
+app.use(morgan('dev'));
+app.use(cors());
 
 app.get('/', (req, res) => {
   res.json({msg: 'ok'})
