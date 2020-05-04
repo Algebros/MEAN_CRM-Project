@@ -2,7 +2,7 @@ const getAll = (req, res) => {
   res.status(200).json({
     login: 'category getAll'
   })
-}
+};
 
 const getById = (req, res) => {
   res.status(200).json({
