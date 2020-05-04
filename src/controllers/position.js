@@ -1,25 +1,33 @@
-const getByCategoryId = (req, res) => {
-  res.status(200).json({
-    login: 'login'
-  })
+const Position = require('../models/position');
+
+const getByCategoryId = async (req, res) => {
+  const position = await Position.find({
+    category: req.params.categoryId,
+    user: req.user.id
+  });
+  res.status(200).json(position);
 }
 
-const create = (req, res) => {
-  res.status(200).json({
-    login: 'reg'
+const create = async (req, res) => {
+  const position = await Position.create({
+    name: req.body.name,
+    cost: req.body.cost,
+    category: req.body.category,
+    user: req.user.id
   })
+  res.status(201).json(position);
 }
 
-const remove = (req, res) => {
+const remove = async (req, res) => {
+  await Position.remove({ _id: req.params.id });
   res.status(200).json({
-    login: 'login'
-  })
+    message: 'Position removed'
+  });
 }
 
-const update = (req, res) => {
-  res.status(200).json({
-    login: 'reg'
-  })
+const update = async (req, res) => {
+  const position = await Position.findByIdAndUpdate(req.params.id, req.body, { new: true });
+  res.status(200).json(position);
 }
 
 module.exports = {

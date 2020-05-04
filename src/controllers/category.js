@@ -1,31 +1,30 @@
-const getAll = (req, res) => {
-  res.status(200).json({
-    login: 'category getAll'
-  })
+const Category = require('../models/category');
+const Position = require('../models/position');
+
+const getAll = async (req, res) => {
+  const category = await Category.find({ user: req.user.id });
+  res.status(200).json(category);
 };
 
-const getById = (req, res) => {
-  res.status(200).json({
-    login: 'category getById'
-  })
+const getById = async (req, res) => {
+  const category = await Category.findById(req.params.id);
+  res.status(200).json(category);
 }
 
-const remove = (req, res) => {
+const remove = async (req, res) => {
+  await Category.remove({ _id: req.params.id });
+  await Position.remove({ category: req.params.id });
   res.status(200).json({
-    login: 'category remove'
-  })
+    message: 'Category removed'
+  });
 }
 
-const create = (req, res) => {
-  res.status(200).json({
-    login: 'category create'
-  })
+const create = async (req, res) => {
+
 }
 
-const update = (req, res) => {
-  res.status(200).json({
-    login: 'category update'
-  })
+const update = async (req, res) => {
+
 }
 
 module.exports = {
