@@ -1,30 +1,30 @@
 const getAll = (req, res) => {
   res.status(200).json({
-    login: 'login'
+    login: 'category getAll'
   })
 }
 
 const getById = (req, res) => {
   res.status(200).json({
-    login: 'reg'
+    login: 'category getById'
   })
 }
 
 const remove = (req, res) => {
   res.status(200).json({
-    login: 'reg'
+    login: 'category remove'
   })
 }
 
 const create = (req, res) => {
   res.status(200).json({
-    login: 'reg'
+    login: 'category create'
   })
 }
 
 const update = (req, res) => {
   res.status(200).json({
-    login: 'reg'
+    login: 'category update'
   })
 }
 
