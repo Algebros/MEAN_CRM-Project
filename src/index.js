@@ -21,12 +21,15 @@ app.use(cors());
 app.get('/', (req, res) => {
   res.json({msg: 'ok'})
 });
-// passport.authenticate('jwt', {session: false}),
+
+const guard = passport.authenticate('jwt', {session: false});
+app.use('/uploads', express.static('uploads'));
+
 app.use('/api/auth', catchErrors(authRoute));
-app.use('/api/analytics', catchErrors(analyticsRoute));
-app.use('/api/category', catchErrors(categoryRoute));
-app.use('/api/order', catchErrors(orderRoute));
-app.use('/api/position', catchErrors(positionRoute));
+app.use('/api/analytics', guard, catchErrors(analyticsRoute));
+app.use('/api/category', guard, catchErrors(categoryRoute));
+app.use('/api/order', guard, catchErrors(orderRoute));
+app.use('/api/position', guard, catchErrors(positionRoute));
 app.use('*', catchErrors(async (req, res) => {
   throw new ErrorHandler(getStatusCode('Not Found'), getStatusText(404));
 }));

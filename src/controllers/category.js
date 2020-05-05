@@ -20,11 +20,21 @@ const remove = async (req, res) => {
 }
 
 const create = async (req, res) => {
-
+  const category = await Category.create({
+    name: req.body.name,
+    user: req.user.id,
+    imageSrc: req.file ? req.file.path : ''
+  });
+  res.status(201).json(category);
 }
 
 const update = async (req, res) => {
-
+  const updated = {
+    name: req.body.name
+  }
+  if(req.file) updated.imageSrc = req.file.path;
+  const category = await Category.findByIdAndUpdate(req.params.id, updated, {new: true});
+  res.status(200).json(category);
 }
 
 module.exports = {
