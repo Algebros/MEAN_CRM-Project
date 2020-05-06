@@ -5,7 +5,10 @@
   "main": "src/server.js",
   "scripts": {
     "start": "node server",
-    "dev": "nodemon server"
+    "server": "nodemon server",
+    "client-install": "npm install --prefix client",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
@@ -35,6 +38,7 @@
     "passport-jwt": "^4.0.0"
   },
   "devDependencies": {
+    "concurrently": "^5.2.0",
     "nodemon": "^2.0.3"
   }
 }
