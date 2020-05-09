@@ -32,6 +32,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         MaterialSerice.toast('Now you may login to the system');
       } else if (params.accessDenied) {
         MaterialSerice.toast('First of all, you need to be an authorized in the system');
+      } else if (params.sessionFailed) {
+        MaterialSerice.toast('Please, enter to the system again');
       }
     });
   }
