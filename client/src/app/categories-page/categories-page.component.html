@@ -13,13 +13,18 @@
 class="row"
 >
   <div class="col s12">
-      <div class="collection">
+      <div class="collection" *ngIf="categories.length !== 0; else empty">
           <a
             *ngFor="let category of categories"
-            href="#!"
-            class="collection-item active"
+            [routerLink]="['/categories', category._id]" routerLinkActive="active" 
+            class="collection-item"
           >{{category.name}}</a>
       </div>
+      <ng-template #empty>
+        <div class="center">
+          Categories empty
+        </div>
+      </ng-template>
   </div>
 </div>
 
