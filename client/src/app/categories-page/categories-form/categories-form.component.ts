@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CategoriesService } from 'src/app/shared/services/categories.service';
 import { switchMap } from 'rxjs/operators';
@@ -23,7 +23,8 @@ export class CategoriesFormComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private categoriesServices: CategoriesService
+    private categoriesServices: CategoriesService,
+    private router: Router
     ) { }
 
   ngOnInit(): void {
@@ -61,6 +62,18 @@ export class CategoriesFormComponent implements OnInit {
 
   triggerClick() {
     this.inputRef.nativeElement.click();
+  }
+
+  deleteCategory() {
+    const decision = window.confirm(`Are you sure you want to delete ${this.category.name}`);
+    if (decision) {
+      this.categoriesServices.delete(this.category._id)
+      .subscribe(
+        (response) => MaterialSerice.toast(response.message),
+        (error) => MaterialSerice.toast(error.error.message),
+        () => this.router.navigate(['/categories'])
+      );
+    }
   }
 
   onFileUpload(event: Event) {
