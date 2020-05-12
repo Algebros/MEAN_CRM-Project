@@ -1,8 +1,8 @@
 import { ElementRef } from '@angular/core';
+import { MaterialInstance } from '../interfaces';
 
 // tslint:disable-next-line: max-line-length
-declare var M: { toast: (arg0: { html: string; }) => void; FloatingActionButton: { init: (arg0: any) => void; }; updateTextFields: () => void; };
-
+declare var M;
 export class MaterialSerice {
   static toast(message: string) {
     M.toast({ html: message });
@@ -14,5 +14,9 @@ export class MaterialSerice {
 
   static updateTextInputs() {
     M.updateTextFields();
+  }
+
+  static initModal(ref: ElementRef): MaterialInstance {
+    return M.Modal.init(ref.nativeElement);
   }
 }

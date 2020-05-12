@@ -13,3 +13,16 @@ export interface Category {
   user?: string;
   imageSrc?: string;
 }
+export interface Position {
+  _id?: string;
+  user?: string;
+  name: string;
+  category: string;
+  cost: number;
+}
+
+export interface MaterialInstance {
+  open?(): void;
+  close?(): void;
+  destroy?(): void;
+}
