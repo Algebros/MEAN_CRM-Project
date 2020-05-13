@@ -15,14 +15,30 @@ export interface Category {
 }
 export interface Position {
   _id?: string;
-  user?: string;
   name: string;
-  category: string;
   cost: number;
+  category: string;
+  user?: string;
+  quantity?: number;
 }
 
 export interface MaterialInstance {
   open?(): void;
   close?(): void;
   destroy?(): void;
+}
+
+export interface Order {
+  date?: Date;
+  order?: number;
+  user?: string;
+  list: OrderPosition[];
+  _id?: string;
+}
+
+export interface OrderPosition {
+  name: string;
+  cost: number;
+  quantity: number;
+  _id?: string;
 }
