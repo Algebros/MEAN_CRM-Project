@@ -4,6 +4,7 @@ import { MaterialSerice } from '../shared/classes/material.service';
 import { MaterialInstance, OrderPosition, Order } from '../shared/interfaces';
 import { LocalOrderService } from '../shared/services/local-order.service';
 import { OrderService } from '../shared/services/order.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-order-page',
@@ -14,13 +15,14 @@ export class OrderPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild('modal') modalRef: ElementRef;
   modal: MaterialInstance;
+  oSub: Subscription;
   isRoot: boolean;
   pending = false;
 
   constructor(
     private router: Router,
-    public localOrder: LocalOrderService,
-    private order: OrderService
+    public localOrderService: LocalOrderService,
+    private orderService: OrderService
   ) { }
 
   ngOnInit(): void {
@@ -34,6 +36,7 @@ export class OrderPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy() {
     this.modal.destroy();
+    if (this.oSub) { this.oSub.unsubscribe(); }
   }
 
   ngAfterViewInit() {
@@ -41,7 +44,7 @@ export class OrderPageComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   removePosition(orderPosition: OrderPosition) {
-    this.localOrder.remove(orderPosition);
+    this.localOrderService.remove(orderPosition);
   }
 
   openModal() {
@@ -56,16 +59,16 @@ export class OrderPageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.pending = true;
 
     const order: Order = {
-      list: this.localOrder.list.map((i) => {
+      list: this.localOrderService.list.map((i) => {
         delete i._id;
         return i;
       })
     };
 
-    this.order.create(order).subscribe(
+    this.oSub = this.orderService.create(order).subscribe(
       (dataOrder) => {
         MaterialSerice.toast(`Order №${dataOrder.order} added`);
-        this.localOrder.clear();
+        this.localOrderService.clear();
       },
       (error) => MaterialSerice.toast(error.error.message),
       () => {
