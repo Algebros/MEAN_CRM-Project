@@ -17,6 +17,10 @@ const positionSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: 'userSchema'
+  },
+  quantity: {
+    type: Number,
+    default: 1
   }
 });
 
