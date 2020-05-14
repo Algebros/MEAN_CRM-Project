@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HistoryPageComponent implements OnInit {
 
+  isFilterVisible = false;
+
   constructor() { }
 
   ngOnInit(): void {
