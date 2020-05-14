@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy, AfterViewInit } from '@angular/core';
 import { MaterialInstance } from '../shared/interfaces';
 import { MaterialSerice } from '../shared/classes/material.service';
+import { OrderService } from '../shared/services/order.service';
 
 @Component({
   selector: 'app-history-page',
@@ -13,9 +14,15 @@ export class HistoryPageComponent implements OnInit, OnDestroy, AfterViewInit {
   tooltip: MaterialInstance;
   isFilterVisible = false;
 
-  constructor() { }
+  constructor(
+    private ordersService: OrderService,
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  private fetch() {
+    this.ordersService.fetch();
   }
 
   ngOnDestroy() {
