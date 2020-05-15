@@ -34,9 +34,22 @@ const overview = async (req, res) => {
 }
 
 const analytics = async (req, res) => {
-  res.status(200).json({
-    login: 'reg'
-  })
+  const allOrders = Order.find({user: req.user.id}).sort({date: 1});
+  const ordersMap = getOrdersMap(allOrders);
+
+  const average = +(calcPrice(allOrders) / Object.keys(ordersMap).length).toFixed(2);
+
+  const chart = Object.keys(ordersMap).map((label) => {
+    const revenues = calcPrice(ordersMap.label);
+    const order = ordersMap[label].length;
+    return {
+      label,
+      revenues,
+      order
+    }
+  });
+
+  res.status(200).json({ average, chart });
 }
 
 function getOrdersMap(orders = []) {
