@@ -34,7 +34,7 @@ const overview = async (req, res) => {
 }
 
 const analytics = async (req, res) => {
-  const allOrders = Order.find({user: req.user.id}).sort({date: 1});
+  const allOrders = await Order.find({user: req.user.id}).sort({date: 1});
   const ordersMap = getOrdersMap(allOrders);
 
   const average = +(calcPrice(allOrders) / Object.keys(ordersMap).length).toFixed(2);
