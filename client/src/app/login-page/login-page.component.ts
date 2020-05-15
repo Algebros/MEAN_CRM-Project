@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../shared/services/auth.service';
 import { Subscription } from 'rxjs';
@@ -10,7 +10,7 @@ import { MaterialSerice } from '../shared/classes/material.service';
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss']
 })
-export class LoginPageComponent implements OnInit, OnDestroy {
+export class LoginPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
   form: FormGroup;
   aSub: Subscription;
@@ -23,8 +23,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, [Validators.required, Validators.minLength(6)])
+      email: new FormControl('admin@mail.ru', [Validators.required, Validators.email]),
+      password: new FormControl('123456', [Validators.required, Validators.minLength(6)])
     });
 
     this.route.queryParams.subscribe((params: Params) => {
@@ -40,6 +40,10 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     if (this.aSub) { this.aSub.unsubscribe(); }
+  }
+
+  ngAfterViewInit() {
+    MaterialSerice.updateTextInputs();
   }
 
   onSubmit() {
