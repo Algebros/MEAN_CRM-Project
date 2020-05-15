@@ -28,6 +28,10 @@ export interface MaterialInstance {
   destroy?(): void;
 }
 
+export interface MaterialDatepicker extends MaterialInstance {
+  date?: Date;
+}
+
 export interface Order {
   date?: Date;
   order?: number;
@@ -41,4 +45,10 @@ export interface OrderPosition {
   cost: number;
   quantity: number;
   _id?: string;
+}
+
+export interface Filter {
+  start?: Date;
+  end?: Date;
+  order?: number;
 }
