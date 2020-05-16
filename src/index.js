@@ -1,5 +1,6 @@
 const express = require('express');
 const passport = require('passport');
+const path = require('path');
 const passportJwt = require('./middleware/passport');
 const cors = require('cors');
 const morgan = require('morgan');
@@ -33,6 +34,18 @@ app.use('/api/position', guard, catchErrors(positionRoute));
 app.use('*', catchErrors(async (req, res) => {
   throw new ErrorHandler(getStatusCode('Not Found'), getStatusText(404));
 }));
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/dist/client'));
+
+  app.get('*', (req, res) => {
+    res.sendFile(
+      path.resolve(
+        __dirname, 'client', 'dist', 'client', 'index.html'
+      )
+    )
+  })
+}
 
 app.use((err, req, res, next) => {
   handleError(err, res);
