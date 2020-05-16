@@ -40,7 +40,7 @@ const analytics = async (req, res) => {
   const average = +(calcPrice(allOrders) / Object.keys(ordersMap).length).toFixed(2);
 
   const chart = Object.keys(ordersMap).map((label) => {
-    const revenues = calcPrice(ordersMap.label);
+    const revenues = calcPrice(ordersMap[label]);
     const order = ordersMap[label].length;
     return {
       label,
@@ -57,8 +57,8 @@ function getOrdersMap(orders = []) {
   orders.forEach((order) => {
     const date = moment(order.date).format('DD.MM.YYYY');
     if (date === moment().format('DD.MM.YYYY')) return;
-    if (!daysOrders.date) daysOrders.date = [];
-    daysOrders.date.push(order);
+    if (!daysOrders[date]) daysOrders[date] = [];
+    daysOrders[date].push(order);
   });
 
   return daysOrders;

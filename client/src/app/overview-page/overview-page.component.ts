@@ -3,6 +3,7 @@ import { AnalyticsService } from '../shared/services/analytics.service';
 import { Observable } from 'rxjs';
 import { OverviewPage, MaterialInstance } from '../shared/interfaces';
 import { MaterialSerice } from '../shared/classes/material.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-overview-page',
