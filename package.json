@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "description": "MEAN stack",
   "main": "src/server.js",
+  "engines": {
+    "node": "12.13.x",
+    "npm": "6.12.x"
+  },
   "scripts": {
     "start": "node server",
-    "server": "nodemon server",
-    "client-install": "npm install --prefix client",
-    "client": "npm run start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "server": "nodemon server"
   },
   "repository": {
     "type": "git",
