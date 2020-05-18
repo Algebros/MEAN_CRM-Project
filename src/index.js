@@ -19,10 +19,6 @@ passportJwt(passport);
 app.use(morgan('dev'));
 app.use(cors());
 
-app.get('/', (req, res) => {
-  res.json({msg: 'ok'})
-});
-
 const guard = passport.authenticate('jwt', {session: false});
 app.use('/uploads', express.static('uploads'));
 
@@ -31,9 +27,14 @@ app.use('/api/analytics', guard, catchErrors(analyticsRoute));
 app.use('/api/category', guard, catchErrors(categoryRoute));
 app.use('/api/order', guard, catchErrors(orderRoute));
 app.use('/api/position', guard, catchErrors(positionRoute));
-app.use('*', catchErrors(async (req, res) => {
-  throw new ErrorHandler(getStatusCode('Not Found'), getStatusText(404));
-}));
+// app.use('*', catchErrors(async (req, res) => {
+//   throw new ErrorHandler(getStatusCode('Not Found'), getStatusText(404));
+// }));
+
+app.use(express.static('../client/dist/client'));
+app.get('*', function(req, res) {
+  res.sendFile(path.resolve(__dirname, '../', 'client', 'dist', 'client', 'index.html'));
+});
 
 app.use((err, req, res, next) => {
   handleError(err, res);

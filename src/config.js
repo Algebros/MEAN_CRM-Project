@@ -6,7 +6,7 @@ dotenv.config({
 });
 
 module.exports = {
-  PORT: process.env.PORT,
+  PORT: process.env.PORT || 6000,
   SECRET_KEY: process.env.SECRET_KEY,
   MONGO_URL: process.env.MONGO_URL
 };

@@ -1,0 +1,14 @@
+{
+  "/api/*": {
+    "target": "https://immense-taiga-32704.herokuapp.com/",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/uploads/*": {
+    "target": "https://immense-taiga-32704.herokuapp.com/",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  }
+}

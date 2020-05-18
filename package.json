@@ -1,15 +1,18 @@
 {
-  "name": "MEAN_CRM-Project",
+  "name": "mean-crm-project",
   "version": "1.0.0",
   "description": "MEAN stack",
   "main": "src/server.js",
   "engines": {
-    "node": "12.13.x",
-    "npm": "6.12.x"
+    "node": "12.13.1",
+    "npm": "6.12.1"
   },
   "scripts": {
-    "start": "node server",
-    "server": "nodemon server"
+    "start": "node src/server",
+    "dev": "nodemon src/server",
+    "client-install": "npm install --prefix client",
+    "client": "npm run start --prefix client",
+    "heroku-postbuild": "npm run client-install && npm run build --prefix client"
   },
   "repository": {
     "type": "git",
